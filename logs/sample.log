@@ -1,0 +1,8 @@
+May 16 12:01:11 server sshd[1234]: Failed password for root from 185.220.101.45 port 53211 ssh2
+May 16 12:02:44 server sshd[1235]: Failed password for admin from 185.220.101.45 port 53212 ssh2
+May 16 12:03:10 server sshd[1236]: Accepted password for prod from 192.168.1.10 port 51122 ssh2
+May 16 12:05:01 server nginx: GET /wp-login.php from 45.155.205.233
+May 16 12:07:31 server nginx: POST /admin/login from 45.155.205.233
+May 16 12:09:14 server kernel: Connection attempt from 10.0.0.5
+May 16 12:11:59 server sshd[1240]: Failed password for invalid user test from 91.240.118.172 port 60221 ssh2
+May 16 12:12:21 server sshd[1241]: Failed password for root from 91.240.118.172 port 60222 ssh2
