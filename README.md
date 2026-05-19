@@ -112,18 +112,84 @@ Private/local адреса вроде 192.168.1.15 и 127.0.0.1 не попад�
 
     генерация отчёта для дальнейшего анализа
 
-Следующие улучшения
 
-Планируемые доработки:
+## 19.05.2026 update
 
-    enrichment через AbuseIPDB или VirusTotal
 
-    добавление severity score
+AbuseIPDB enrichment
 
-    экспорт в JSON
+Инструмент поддерживает опциональное обогащение через AbuseIPDB.
 
-    сохранение case report
+Если в .env указан ABUSEIPDB_API_KEY, скрипт проверяет каждый найденный публичный IP через AbuseIPDB и добавляет в отчёт данные внешней репутации.
 
-    поддержка нескольких лог-файлов
+Дополнительные CSV-поля:
 
-    более точная классификация web/auth событий
+    abuse_confidence_score
+
+    abuse_total_reports
+
+    abuse_country
+
+    abuse_usage_type
+
+    abuse_isp
+
+    abuse_domain
+
+    enrichment_source
+
+Если API-ключ не настроен, инструмент продолжает работать в локальном режиме:
+
+enrichment_source = local_only
+
+Настройка AbuseIPDB API
+
+Создайте .env в корне проекта:
+
+ABUSEIPDB_API_KEY=your_api_key_here
+ABUSEIPDB_MAX_AGE_DAYS=90
+
+Можно использовать .env.example как шаблон:
+
+cp .env.example .env
+
+После этого нужно вставить свой AbuseIPDB API key в .env.
+
+Файл .env не должен попадать в GitHub, потому что он содержит секретный API-ключ.
+Запуск
+
+Базовый запуск:
+
+python src/extractor.py logs/sample.log
+
+Запуск с указанием пути к CSV-отчёту:
+
+python src/extractor.py logs/sample.log -o reports/ip_report.csv
+
+Пример консольного вывода
+
+=== IOC Enrichment Report ===
+Total indicators: 3
+
+[1] 45.155.205.233
+    Verdict: HIGH
+    Count: 3
+    Reason: Multiple failed login or invalid user events
+    Lines: 4,5,6
+    AbuseIPDB: score=7, reports=3, country=RU
+    Network:
+        Usage: Data Center/Web Hosting/Transit
+        ISP: Cloud Technologies LLC trading as Cloud.ru
+        Domain: cloud.ru
+    Source: abuseipdb
+    Sample: May 18 10:03:44 server sshd[1204]: Failed password for invalid user test...
+
+CSV report
+
+CSV-отчёт сохраняется в reports/ip_report.csv.
+
+Пример полей:
+
+ip,count,verdict,reason,line_numbers,sample_line,abuse_confidence_score,abuse_total_reports,abuse_country,abuse_usage_type,abuse_isp,abuse_domain,enrichment_source
+
+CSV нужен для дальнейшего анализа, импорта в таблицы, SIEM-like workflow или прикладывания результата к расследованию.
