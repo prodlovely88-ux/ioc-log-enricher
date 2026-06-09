@@ -1,19 +1,5 @@
 # IOC Log Enricher
 
-## RU
-
-Небольшой SOC-инструмент на Python для извлечения публичных IPv4 из логов, базового triage по контексту и опционального enrichment через AbuseIPDB.
-
-Проект сделан как портфолио-кейс для Junior SOC Analyst.
-
-## EN
-
-A small Python SOC tool for extracting public IPv4 indicators from logs, applying basic contextual triage, and optionally enriching results with AbuseIPDB.
-
-Built as a Junior SOC Analyst portfolio project.
-
----
-
 ## Features / Возможности
 
 - Extract public IPv4 indicators from logs
